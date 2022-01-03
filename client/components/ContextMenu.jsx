@@ -74,8 +74,10 @@ export default class ContextMenu extends PureComponent {
 
   handleClickDepsGraph = () => {
     const {chunk: selectedChunk} = this.props;
-    const depUrl = location.href.replace('/static?', `/dep-graph/${selectedChunk}?`);
-    location.assign(depUrl);
+    if (selectedChunk && selectedChunk.label) {
+      const depUrl = location.href.replace('/static?', `/dep-graph/${selectedChunk.label}?`);
+      location.assign(depUrl);
+    }
   }
 
   /**
