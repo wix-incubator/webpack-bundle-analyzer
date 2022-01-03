@@ -33,6 +33,10 @@ export default class ContextMenu extends PureComponent {
           Hide chunk
         </ContextMenuItem>
         <ContextMenuItem disabled={!multipleChunksSelected}
+          onClick={this.handleClickDepsGraph}>
+          Show dependencies graph
+        </ContextMenuItem>
+        <ContextMenuItem disabled={!multipleChunksSelected}
           onClick={this.handleClickFilterToChunk}>
           Hide all other chunks
         </ContextMenuItem>
@@ -66,6 +70,12 @@ export default class ContextMenu extends PureComponent {
   handleClickShowAllChunks = () => {
     store.selectedChunks = store.allChunks;
     this.hide();
+  }
+
+  handleClickDepsGraph = () => {
+    const {chunk: selectedChunk} = this.props;
+    const depUrl = location.href.replace('/static?', `/dep-graph/${selectedChunk}?`);
+    location.assign(depUrl);
   }
 
   /**
